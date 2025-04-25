@@ -1,4 +1,4 @@
-// Jayden Thompson - PerishableItem
+// Jayden Thompson - PerishableItem subclass
 package prob2;
 
 import Item;
@@ -23,5 +23,13 @@ public class PerishableItem extends Item {
 	
 	public boolean isExpired(int currentDay) {
 		return expireInDays - currentDay <= 0;
+	}
+	
+	public double getPrice() {
+		double price = super.getPrice();
+		if(isExpired(0)) {
+			price = 0;
+		}
+		return price;
 	}
 }
