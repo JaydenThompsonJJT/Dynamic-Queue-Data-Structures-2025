@@ -19,6 +19,53 @@ public class Warehouse {
 		// TODO Auto-generated method stub
 
 	}
+
+	public static void order() {
+		Scanner scnr = new Scanner(System.in);
+		System.out.println("Type a product and the quantity you want to purchase in the format(Pants) press enter then the quantity(12)");
+		String item = scnr.nextLine();
+		System.out.println("Type the quantity you want to purchase");
+		String quant = scnr.nextLine();
+		int amount;
+		try {
+			amount = Integer.parseInt(quant);
+		} 
+		catch (NumberFormatException e) {
+		    System.out.println("Invalid integer input");
+		}
+		for(int i=0; i<amount;i++) {
+			if(item) {
+				if(item == "Pants") {
+					for(int i = 0; i < notParishable.getSie(); i++) {
+						if(notParishable.get(i) instanceof Pants) {
+							notParishable.remove(i);
+						}
+					}
+					
+				}
+				else if(item == "Iphone16") {
+					for(int i = 0; i < notParishable.getSie(); i++) {
+						if(notParishable.get(i) instanceof Iphone16) {
+							notParishable.remove(i);
+						}
+					}
+					
+					
+				}
+				else if(item == "Chips") {
+					
+					Chips chips = chips.pop();
+					
+					
+				}
+				else{
+					Rice rice = rice.pop();
+					
+				}
+			}
+		}
+		
+	}
 	
 	public static void buyInventory() {
 		Scanner scnr = new Scanner(System.in);
