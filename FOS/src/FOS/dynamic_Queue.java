@@ -1,0 +1,87 @@
+package FOS;
+
+import java.lang.reflect.Array;
+
+
+public class dynamic_Queue<X> {				//<X> makes it generic so i don't have to make different classes for String, Int, Double or the custom "order" that we are creating
+	private int frontIndex;
+	private int backIndex;
+	private int sizeVar;
+	private int capacityVar = 4;
+	private X[] arr;
+	
+
+	@SuppressWarnings("unchecked")			
+	public dynamic_Queue(Class<X> clazz) {  
+		arr = (X[]) Array.newInstance(clazz, capacityVar);
+		frontIndex = 0;
+		backIndex = -1;
+		sizeVar = 0;
+	}
+	
+	public boolean isEmpty() {
+		return sizeVar == 0;
+	}
+	
+	public int size() {
+		return sizeVar;
+	}
+	
+	public X front() {
+		if (isEmpty()) {
+			System.out.println("The Queue is empty");
+			return null;
+		}
+		return arr[frontIndex];
+	}
+	
+	public void push(X x) {
+		if (sizeVar == capacityVar) {
+			resize();
+		}
+		if (isEmpty()) {
+			frontIndex = backIndex = 0;				 
+		}
+		else {
+			backIndex = (backIndex + 1) % capacityVar;
+			}
+		arr[backIndex] = x;
+		sizeVar++;
+		}
+		
+		private void resize() {
+			capacityVar *= 2;
+			@SuppressWarnings("unchecked")
+			X[] temp = (X[]) Array.newInstance(arr.getClass().getComponentType(), capacityVar);
+			for (int i = 0, j = frontIndex; i < sizeVar; i++) {
+				temp[i] = arr[j];
+				j = (j + 1) % capacityVar;
+			}
+			frontIndex = 0;
+			backIndex = sizeVar - 1;
+			arr = temp;
+		}
+
+		public void pop() {
+			if (isEmpty()) {
+				System.out.println("Queue is empty");
+			}
+			if (frontIndex == backIndex) {
+				frontIndex = backIndex = -1;
+			}
+			else {
+				frontIndex = (frontIndex + 1) % capacityVar;
+			}
+			sizeVar--;
+		}	
+		
+		public X get(int index) {
+		    if (index < 0 || index >= sizeVar) {
+		        throw new IndexOutOfBoundsException("Index out of bounds for the queue");
+		    }
+		    // Calculate the actual index in the circular array
+		    int actualIndex = (frontIndex + index) % capacityVar;
+		    return arr[actualIndex];
+		}
+
+	}

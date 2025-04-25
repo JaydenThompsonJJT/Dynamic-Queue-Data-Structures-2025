@@ -1,0 +1,30 @@
+.root {
+	/*
+	 * Padding around the border. Alternately
+	 * -fx-padding: 10px, 10px, 10px, 10px
+	 */
+	-fx-padding: 10px;
+}
+ 
+HBox {
+	/*
+	 * Spacing between nodes.
+	 */
+    -fx-spacing: 10px;
+    /*
+     * Don't need this as GridPane has hgap & vgap set:
+     * -fx-padding: 10px; 
+     */
+}
+
+VBox {
+    -fx-spacing: 10px;
+}
+
+GridPane {
+	/*
+	 * Spacing between nodes
+	 */
+	-fx-hgap:10px;
+	-fx-vgap:10px;
+}
