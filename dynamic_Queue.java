@@ -22,8 +22,18 @@ public class dynamic_Queue<X> {				//<X> makes it generic so i don't have to mak
 	}
 	
 	public void prioritySort() {
-		DateComparator comp = new DateComparator();
-		Collections.sort(arr,comp);
+		ArrayList<X> list = new ArrayList<>();
+		Collections.addAll(list,arr);
+		
+		
+		Comparator<X> comp = new DateComparator<>();
+		Collections.sort(list,comp);
+		
+		for(int i=0; i<arr.length;i++) {
+			arr[i] = list.get(i);
+		}
+		
+		
 	}
 	
 	public boolean isEmpty() {
