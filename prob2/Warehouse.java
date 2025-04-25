@@ -1,4 +1,4 @@
-package prob2;
+package codebyrj;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -9,17 +9,16 @@ import java.util.Scanner;
 
 public class Warehouse {
 	Set<Product> s = new HashSet<>();
-	Set<Product> perishable = new HashSet<>();
-	Set<Product> nonPerishable = new HashSet<>();
-	ArrayList<NonPerishable> notPerishable = new ArrayList<>();
+	Set<Product> parishable = new HashSet<>();
+	Set<Product> nonParishable = new HashSet<>();
+	ArrayList<NonParishable> notParishable = new ArrayList<>();
 	PriorityQueue<Chips> chips = new PriorityQueue<>();
 	PriorityQueue<Rice> rice = new PriorityQueue<>();
 	
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
 	}
-	
 	
 	public static void buyInventory() {
 		Scanner scnr = new Scanner(System.in);
@@ -27,28 +26,40 @@ public class Warehouse {
 		String item = scnr.nextLine();
 		System.out.println("Type the quantity you want to purchase");
 		String quant = scnr.nextLine();
+		
+		
 		int amount;
-			try {
+		try {
 			amount = Integer.parseInt(quant);
 		} 
 		catch (NumberFormatException e) {
 		    System.out.println("Invalid integer input");
 		}
 		unload(quant,amount);
+		
+		
+		
 		stock();
+		
 	}
 
 	public static void unload(String product, int units) {
 		String thing = product;
-		int amount = units;
-		int skuForNotPerishable = 0;
+		int amount = units
+		int skuForPants = 0;
+		int skuForIphone16 = 0;
 		int skuForChips = 0;
 		int skuForRice = 0;
 		for(int i=0; i<amount;i++) {
-			if(item == "notPerishable") {
-				skuForNotPerishable++;
-				NonPerishable notPerishable = new NonPerishable(skuForNotPerishable);
-				s.add(notPerishable);
+			if(item == "Pants") {
+				skuForPants ++;
+				Pants pants = new Pants(skuForPants);
+				s.add(pants);
+			}
+			else if(item == "Iphone16") {
+				skuForIphone16 ++;
+				Iphone16 iphone16 = new Iphone16(skuForIphone16);
+				s.add(iphone16);
 			}
 			else if(item == "Chips") {
 				skuForChips ++;
@@ -62,6 +73,7 @@ public class Warehouse {
 				s.add(rice);
 				
 			}
+		}
 	}
 	
 	public static void stock() {
@@ -74,11 +86,11 @@ public class Warehouse {
 		Iterator iter = new Iterator(s);
 		while(iter.hasNext()) {
 			Product p = iter.next();
-			if(p.isPerishable()) {
-				perishable.add(p);
+			if(p.isParishable()) {
+				parishable.add(p);
 			}
 			else {
-				nonPerishable.add(p);
+				nonParishable.add(p);
 			}
 		}
 		
@@ -87,14 +99,14 @@ public class Warehouse {
 	}
 	
 	public static void organize() {
-		Iterator iter = new Iterator(perishable);
+		Iterator iter = new Iterator(parishable);
 		while(iter.hasNext()) {
 			Product p = iter.next();
 			
-			notPerishable.add(p);
+			notParishable.add(p);
 			
 		}
-		Iterator iter2 = new Iterator(nonPerishable);
+		Iterator iter2 = new Iterator(nonParishable);
 		while(iter2.hasNext()) {
 			Product p = iter2.next();
 			if(p.instanceOf(Chips)) {
