@@ -11,8 +11,7 @@ public class Warehouse {
 	Set<Product> s = new HashSet<>();
 	Set<Product> parishable = new HashSet<>();
 	Set<Product> nonParishable = new HashSet<>();
-	ArrayList<Pants> pants = new ArrayList<>();
-	ArrayList<Iphone16> iphone16 = new ArrayList<>();
+	ArrayList<NonParishable> notParishable = new ArrayList<>();
 	PriorityQueue<Chips> chips = new PriorityQueue<>();
 	PriorityQueue<Rice> rice = new PriorityQueue<>();
 	
@@ -103,12 +102,9 @@ public class Warehouse {
 		Iterator iter = new Iterator(parishable);
 		while(iter.hasNext()) {
 			Product p = iter.next();
-			if(p.instanceOf(Pants)) {
-				pants.add(p);
-			}
-			else {
-				iphone16.add(p);
-			}
+			
+			notParishable.add(p);
+			
 		}
 		Iterator iter2 = new Iterator(nonParishable);
 		while(iter2.hasNext()) {
