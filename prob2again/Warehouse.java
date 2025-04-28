@@ -10,6 +10,8 @@ public class Warehouse {
 	private PriorityQueue<Item> chips;
 	private PriorityQueue<Item> rice;
 	private int nextId = 1;
+	private int currentDay = 0;
+	private Timer timer;
 	
 	public Warehouse() {
 		items = new HashSet<>();
@@ -21,8 +23,68 @@ public class Warehouse {
 		nextId = 1;
 	}
 	
+	public void startDayTimer() {
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				advanceDay();
+			}
+		}, 0, 2000);
+	}
+	
+	public void advanceDay() {
+		currentDay++;
+		System.out.println("\n--- Day " + currentDay + " ---");
+		
+		//Decrease expiration Timers
+		for (Item item : chips) {
+			if (item instanceof PerishableItem) {
+				((PerishableItem) item).decreaseDays(1);
+			}
+		}
+		for (Item item : rice) {
+			if (item instanceof PerishableItem) {
+				((PerishableItem) item).decreaseDays(1);
+			}
+		}
+		
+		checkForAlmostExpiredItems();
+	}
+	
+	public  void pauseTimer() {
+	    if (timer != null) {
+	        timer.cancel();
+	    }
+	}
+
+	public void resumeTimer() {
+	    startDayTimer();
+	}
+
+	
+	public void checkForAlmostExpiredItems() {
+		for (Item item : chips) {
+	        if (item instanceof PerishableItem) {
+	            PerishableItem perishable = (PerishableItem) item;
+	            if (perishable.getExpireInDays() <= 5 && perishable.getExpireInDays() > 0) {
+	                System.out.println("⚠️ Warning: " + perishable.getName() + " (ID: " + perishable.getId() + ") is expiring soon! (" + perishable.getExpireInDays() + " days left)");
+	            }
+	        }
+	    }
+	    for (Item item : rice) {
+	        if (item instanceof PerishableItem) {
+	            PerishableItem perishable = (PerishableItem) item;
+	            if (perishable.getExpireInDays() <= 5 && perishable.getExpireInDays() > 0) {
+	                System.out.println("!!Warning!!: " + perishable.getName() + " (ID: " + perishable.getId() + ") is expiring soon! (" + perishable.getExpireInDays() + " days left)");
+	            }
+	        }
+	    }
+	}
+	
 	public static void main(String[] args) {
 		Warehouse w = new Warehouse();
+		w.startDayTimer();
 	    Scanner scnr = new Scanner(System.in);
 
 	    boolean running = true;
@@ -33,13 +95,17 @@ public class Warehouse {
 	         System.out.println("3. Process Expired Items");
 	         System.out.println("4. Ship Items");
 	         System.out.println("5. Exit");
+	         System.out.println("6. Pause Simulation");
+	         System.out.println("7. Resume Simulation");
 	         System.out.println("Enter your choice (1-5): ");
 	        
 	        String input = scnr.nextLine();
 	        
 	        switch(input) {
 	            case "1":
+	            	w.pauseTimer();
 	                w.buyInventory(scnr);
+	                w.resumeTimer();
 	                break;
 	            case "2":
 	                w.viewInventory();
@@ -48,12 +114,23 @@ public class Warehouse {
 	                w.processExpiredItems();
 	                break;
 	            case "4":
+	            	w.pauseTimer();
 	                w.shipItems(scnr);
+	                w.resumeTimer();
 	                break;
 	            case "5":
 	                System.out.println("Thank you for using our Warehouse inventory system.");
 	                running = false;
+	                if (w.timer !=null) {
+	                	w.timer.cancel();
+	                }
 	                break;
+	            case "6":
+	            	w.pauseTimer();
+	            	break;
+	            case "7":
+	            	w.resumeTimer();
+	            	break;
 	            default:
 	                System.out.println("Invalid choice. Please enter 1-5.");
 	        }
@@ -98,7 +175,8 @@ public class Warehouse {
 
 	    System.out.println("Perishable Items:");
 	    for(PerishableItem perishableItem : sortedPerishables) {
-	        System.out.println("- " + perishableItem.getName() + " (ID: " + perishableItem.getId() + ") | Expiration: " + perishableItem.getExpireInDays() + " days");
+	    	System.out.println("- " + perishableItem.getName() + " (ID: " + perishableItem.getId() + ") | Expiration: " + perishableItem.getExpireInDays() + " days left");
+
 	    }
 
 	    System.out.println("Non-Perishable Items:");
