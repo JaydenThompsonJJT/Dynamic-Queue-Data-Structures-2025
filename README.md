@@ -1,69 +1,59 @@
-Project Overview
-The Warehouse Inventory Management System is a Java-based application designed to simulate and manage the inventory of a warehouse. It supports both perishable (e.g., chips, rice) and non-perishable (e.g., electronics) items, tracking their expiration dates and quantities. The system uses a timer to simulate the passage of days, automatically updating expiration timers and alerting users when items are about to expire.
-This project demonstrates the use of data structures (priority queues, sets, and lists), object-oriented programming (inheritance, polymorphism), and event-driven programming (timer-based simulation) to address real-world logistics challenges.
+Dynamic Queue Applications in Java
+Two Java projects demonstrating dynamic queue data structures for real-world workflows:
 
-Key Features
-✅ Inventory Management
+1. Restaurant Ordering System
+A dynamic queue-based system for managing restaurant orders.
 
-Add, view, and ship items.
-Track perishable and non-perishable items separately.
+Place, customize, and repeat orders.
+FIFO processing for fair order handling.
+Menu customization (remove/add ingredients, combo meals).
 
-✅ Expiration Tracking
+Key Concepts:
 
-Automatically decreases expiration timers each day.
-Alerts users when items are about to expire (≤5 days).
-Removes expired items from inventory.
-
-✅ User-Friendly Interface
-
-Menu-driven system for easy interaction.
-Options to buy, view, ship, and process expired items.
-
-✅ Simulation Mode
-
-Timer simulates the passage of days (2 seconds = 1 day).
-Pause and resume simulation as needed.
+Dynamic queue implementation.
+Object-oriented design (OOP).
+User-friendly CLI menu.
 
 
-Technologies Used
+2. Warehouse Inventory Simulator
+A timer-driven warehouse system for tracking perishable/non-perishable items.
 
-Java (Core Java, Collections Framework)
-Data Structures (PriorityQueue, Set, List)
-Object-Oriented Design (Inheritance, Polymorphism)
-Event-Driven Programming (Timer, TimerTask)
+Simulates day-by-day expiration updates.
+Alerts for near-expiry items (≤5 days).
+Supports buying, shipping, and processing expired stock.
+
+Key Concepts:
+
+Priority queues for perishable items.
+Event-driven simulation (timer-based days).
+Inventory management with expiration tracking.
 
 
 How to Run
 
+Clone the repository:
+bash Copygit clone [your-repo-url]
 
-Clone the Repository
-bash Copygit clone https://github.com/your-username/Warehouse-Inventory-System.git
+Compile and run in any Java IDE:
 
-
-Compile and Run
-
-Open the project in your preferred Java IDE (e.g., IntelliJ IDEA, Eclipse).
-Compile and run the Warehouse.java file.
-
-
-
-Interact with the System
-
-Use the menu to buy, view, ship, or process expired items.
-The timer will automatically advance days and update expiration timers.
+food_ordering_system.java (Restaurant System)
+Warehouse.java (Inventory Simulator)
 
 
 
 
-Future Enhancements
+Technologies
 
-Add a graphical user interface (GUI) for better user experience.
-Implement database integration for persistent storage.
-Extend the system to support multiple warehouses.
+Java (Collections, OOP)
+Dynamic Queues & Priority Queues
+Timer-based simulation (Warehouse)
 
 
-Contributing
-Contributions are welcome! If you'd like to improve this project, feel free to fork the repository and submit a pull request.
+Future Work
 
-License
-This project is open-source and available under the MIT License.
+Add GUI for both systems.
+Database integration for persistent storage.
+Multi-location support (Warehouse).
+
+
+Open-source. MIT License.
